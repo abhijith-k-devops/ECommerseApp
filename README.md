@@ -23,33 +23,35 @@ bundle exec pod install
 
 > Place the screenshot files in `assets/screenshots` with the names below.
 
-### Home (Mobile)
+### Home
 
-![Home Mobile](assets/screenshots/home-mobile.png)
+| Mobile | Tablet | Web |
+|---|---|---|
+| <img src="assets/screenshots/home-mobile.png" width="260" alt="Home Mobile" /> | <img src="assets/screenshots/home-tablet.png" width="360" alt="Home Tablet" /> | <img src="assets/screenshots/home-web.png" width="360" alt="Home Web" /> |
 
-### Home (Tablet)
+### Product Details
 
-![Home Tablet](assets/screenshots/home-tablet.png)
+| Details Screen |
+|---|
+| <img src="assets/screenshots/product-details-screen.png" width="260" alt="Product Details Screen" /> |
 
-### Home (Web)
+### Favorites
 
-![Home Scroll State](assets/screenshots/home-web.png)
+| Favorites Screen |
+|---|
+| <img src="assets/screenshots/favorites-screen.png" width="260" alt="Favorites Screen" /> |
 
-### Search Screen
+### Cart
 
-![Search Screen](assets/screenshots/search-screen.png)
+| Cart Screen |
+|---|
+| <img src="assets/screenshots/cart-screen.png" width="260" alt="Cart Screen" /> |
 
-### Favorites Screen
+### Search
 
-![Favorites Screen](assets/screenshots/favorites-screen.png)
-
-### Product Details Screen
-
-![Product Details Screen](assets/screenshots/product-details-screen.png)
-
-### Cart Screen
-
-![Cart Screen](assets/screenshots/cart-screen.png)
+| Search Screen |
+|---|
+| <img src="assets/screenshots/search-screen.png" width="260" alt="Search Screen" /> |
 
 ## Project Structure
 
