@@ -27,13 +27,13 @@ bundle exec pod install
 
 ![Home Mobile](assets/screenshots/home-mobile.png)
 
-### Home (Tablet / Web)
+### Home (Tablet)
 
-![Home Tablet Web](assets/screenshots/home-tablet-web.png)
+![Home Tablet](assets/screenshots/home-tablet.png)
 
-### Home Scroll State
+### Home (Web)
 
-![Home Scroll State](assets/screenshots/home-scroll-state.png)
+![Home Scroll State](assets/screenshots/home-web.png)
 
 ### Search Screen
 
