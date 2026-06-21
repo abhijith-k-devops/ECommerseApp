@@ -6,6 +6,7 @@ import AppNavigation from './src/core/navigation/AppNavigation';
 import ThemeProvider from './src/core/contexts/ThemeContext';
 import { FavouriteContextProvider } from './src/presentation/viewmodels/context/FavouriteContext';
 import { useTheme } from './src/core/hooks/useTheme';
+import CartContextProvider, { CartContext } from './src/presentation/viewmodels/context/CartContext';
 
 function AppContent() {
   const { colors } = useTheme();
@@ -16,8 +17,10 @@ function AppContent() {
       <View style={styles.root}>
         <NavigationContainer>
           <FavouriteContextProvider>
-            <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
-            <AppNavigation />
+            <CartContextProvider>
+              <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={colors.background} />
+              <AppNavigation />
+            </CartContextProvider>
           </FavouriteContextProvider>
         </NavigationContainer>
       </View>

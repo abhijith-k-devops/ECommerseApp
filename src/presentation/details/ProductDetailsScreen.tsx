@@ -18,6 +18,9 @@ import { useTheme } from "../../core/hooks/useTheme";
 import FavouriteIconComponent, { FavouriteIconType } from "../../core/components/FavouriteIconComponent";
 import CustomButton, { ButtonType } from "../../core/components/CustomButton";
 import CustomText, { CustomTextVariant } from "../../core/components/CustomText";
+import { useCart } from "../viewmodels/hooks/useCart";
+import { CartModel } from "../../data/models/CartModel";
+import { useFavorites } from "../viewmodels/hooks/useFavourites";
 
 const BUYER_BADGES = ["A", "J", "M", "K"];
 
@@ -28,12 +31,13 @@ export default function ProductDetailsScreen() {
     const { colors } = useTheme();
     const { width: screenWidth } = useWindowDimensions();
     const styles = useMemo(() => createStyles(colors, screenWidth), [colors, screenWidth]);
-    const [isFavourite, setIsFavourite] = useState(false);
+    const { isFavorite, toggleFavorite} = useFavorites();
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const [quantity, setQuantity] = useState(1);
     const productImages = useMemo(() => product.images.filter(Boolean), [product.images]);
     const selectedImage = productImages[selectedImageIndex] ?? productImages[0];
     const totalPrice = useMemo(() => product.price * quantity, [product.price, quantity]);
+    const { addToCart } = useCart();
 
     const handleShare = useCallback(async () => {
         await Share.share({
@@ -42,8 +46,8 @@ export default function ProductDetailsScreen() {
     }, [product.description, product.name, product.price]);
 
     const toggleFavourite = useCallback(() => {
-        setIsFavourite((prev) => !prev);
-    }, []);
+        toggleFavorite(product);
+    }, [toggleFavorite, product]);
 
     const increaseQuantity = useCallback(() => {
         setQuantity((prev) => prev + 1);
@@ -53,18 +57,26 @@ export default function ProductDetailsScreen() {
         setQuantity((prev) => Math.max(1, prev - 1));
     }, []);
 
+    const handleAddToCart = useCallback(async () => {
+        const cartItem: CartModel = {
+            ...product,
+            quantity,
+        };
+        await addToCart(cartItem);
+    }, [addToCart, product, quantity]);
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (
                 <View style={styles.headerActions}>
-                    <FavouriteIconComponent isFavourite={isFavourite} onToggle={toggleFavourite} type={FavouriteIconType.DETAIL} />
+                    <FavouriteIconComponent isFavourite={isFavorite(product.id)} onToggle={toggleFavourite} type={FavouriteIconType.DETAIL} />
                     <TouchableOpacity style={styles.headerIconButton} onPress={handleShare}>
                         <Ionicons name="share-social-outline" size={20} color={colors.textPrimary} />
                     </TouchableOpacity>
                 </View>
             ),
         });
-    }, [colors.textPrimary, handleShare, isFavourite, navigation, styles.headerActions, styles.headerIconButton, toggleFavourite]);
+    }, [colors.textPrimary, handleShare, isFavorite, navigation, styles.headerActions, styles.headerIconButton, toggleFavorite, product]);
 
     return (
         <View style={styles.container}>
@@ -147,7 +159,7 @@ export default function ProductDetailsScreen() {
                     <CustomText variant={CustomTextVariant.TITLE} style={styles.totalValue}>${totalPrice.toFixed(2)}</CustomText>
                 </View>
                 <View style={styles.bottomActionRow}>
-                    <TouchableOpacity style={styles.cartButton}>
+                    <TouchableOpacity style={styles.cartButton} onPress={handleAddToCart}>
                         <Ionicons name="bag-handle-outline" size={24} color={colors.menuButton} />
                     </TouchableOpacity>
                     <CustomButton text="Buy Now" onPress={() => {}} type={ButtonType.PRIMARY} style={styles.buyButton} />
@@ -283,10 +295,10 @@ function createStyles(colors: ColorTheme, screenWidth: number) {
             marginLeft: -10,
         },
         avatarWarm: {
-            backgroundColor: "#F9D7C9",
+            backgroundColor: colors.secondary,
         },
         avatarCool: {
-            backgroundColor: "#D3E3F6",
+            backgroundColor: colors.primary,
         },
         avatarText: {
             fontSize: 12,
@@ -311,7 +323,7 @@ function createStyles(colors: ColorTheme, screenWidth: number) {
             borderRadius: 18,
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: colors.black,
+            backgroundColor: colors.secondary,
         },
         quantityText: {
             fontSize: 28,
@@ -379,7 +391,7 @@ function createStyles(colors: ColorTheme, screenWidth: number) {
             borderRadius: 27,
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: colors.black,
+            backgroundColor: colors.secondary,
         },
         buyButtonText: {
             color: colors.white,

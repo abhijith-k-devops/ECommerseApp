@@ -8,4 +8,5 @@ export interface ProductModel {
     strikeThroughPrice?: number;
     images: [string];
     pillType?: CustomPillType;
+    rating: number;
 }

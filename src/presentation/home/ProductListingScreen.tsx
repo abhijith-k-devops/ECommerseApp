@@ -1,5 +1,5 @@
 
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, TouchableOpacity, Image } from "react-native";
 import { useProduct } from "../viewmodels/hooks/useProduct";
 import { ProductContextProvider } from "../viewmodels/context/ProductContext";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -24,11 +24,42 @@ function ProductListingContent() {
         navigation.getParent()?.navigate("ProductDetails", { product });
     }, [navigation]);
 
+    const categories = [
+        { name: "All", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=200&q=80" },
+        { name: "Men", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" },
+        { name: "Women", image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=200&q=80" },
+    ];
+
     return (
         <View style={styles.container}>
             <HeaderComponent />
             <OfferBannerComponent />
-            <CustomText variant={CustomTextVariant.SUBTITLE} style={styles.title}>Product Listing</CustomText>
+            <View style={styles.sectionHeaderRow}>
+                <CustomText variant={CustomTextVariant.SUBTITLE} style={styles.title}>Categories</CustomText>
+                <CustomText variant={CustomTextVariant.SUBTEXT} style={styles.linkText}>See All</CustomText>
+            </View>
+            <View style={styles.categoriesRow}>
+                {categories.map((category, index) => {
+                    const selected = index === 0;
+                    return (
+                        <TouchableOpacity
+                            key={category.name}
+                            style={selected ? styles.categoryPillActive : styles.categoryPill}
+                            activeOpacity={0.85}
+                        >
+                            <Image source={{ uri: category.image }} style={styles.categoryAvatar} />
+                            <CustomText variant={CustomTextVariant.SUBTITLE} style={selected ? styles.categoryTextActive : styles.categoryText}>
+                                {category.name}
+                            </CustomText>
+                        </TouchableOpacity>
+                    );
+                })}
+            </View>
+
+            <View style={styles.sectionHeaderRow}>
+                <CustomText variant={CustomTextVariant.SUBTITLE} style={styles.title}>Recomended</CustomText>
+                <CustomText variant={CustomTextVariant.SUBTEXT} style={styles.linkText}>See All</CustomText>
+            </View>
             {loading && <CustomText variant={CustomTextVariant.TEXT} style={styles.text}>Loading...</CustomText>}
             {!loading && error && <CustomText variant={CustomTextVariant.TEXT} style={styles.error}>{error}</CustomText>}
             {!loading && !error && (
@@ -77,12 +108,63 @@ function createStyles(colors: any){
         title: {
             fontSize: 18,
             color: colors.textPrimary,
-            marginBottom: 12,
+            marginBottom: 8,
             marginTop: 16,
+        },
+        sectionHeaderRow: {
+            marginTop: 8,
+            marginBottom: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+        },
+        linkText: {
+            fontSize: 15,
+            color: colors.textPrimary,
+        },
+        categoriesRow: {
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 10,
+            marginBottom: 8,
+        },
+        categoryPill: {
+            flexDirection: "row",
+            alignItems: "center",
+            borderRadius: 22,
+            backgroundColor: colors.backgroundSecondary,
+            paddingHorizontal: 8,
+            paddingVertical: 8,
+            gap: 8,
+        },
+        categoryPillActive: {
+            flexDirection: "row",
+            alignItems: "center",
+            borderRadius: 22,
+            backgroundColor: colors.secondary,
+            paddingHorizontal: 8,
+            paddingVertical: 8,
+            gap: 8,
+        },
+        categoryAvatar: {
+            width: 30,
+            height: 30,
+            borderRadius: 15,
+            backgroundColor: colors.default,
+        },
+        categoryText: {
+            color: colors.textPrimary,
+            fontSize: 14,
+            marginRight: 8,
+        },
+        categoryTextActive: {
+            color: colors.white,
+            fontSize: 14,
+            marginRight: 8,
         },
         text: {
             fontSize: 16,
-            color: colors.text,
+            color: colors.textPrimary,
         },
         error: {
             fontSize: 16,

@@ -11,6 +11,7 @@ export class ProductMapper {
             strikeThroughPrice: product.strikePrice,
             images: product.images,
             pillType: product.tag as CustomPillType,
+            rating: product.rating,
         };
     }
 }

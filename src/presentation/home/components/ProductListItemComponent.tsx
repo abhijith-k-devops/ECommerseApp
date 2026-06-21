@@ -4,8 +4,6 @@ import { useTheme } from "../../../core/hooks/useTheme";
 import React, { useCallback } from "react";
 import FavouriteIconComponent from "../../../core/components/FavouriteIconComponent";
 import { ColorTheme } from "../../../core/theme/Colors";
-import Ionicons from "@react-native-vector-icons/ionicons";
-import CustomPill from "../../../core/components/CustomPill";
 import { useFavorites } from "../../viewmodels/hooks/useFavourites";
 import CustomText, { CustomTextVariant } from "../../../core/components/CustomText";
 
@@ -27,26 +25,16 @@ export default function ProductListingItemComponent({ product, onPress }: Produc
             <View style={themedStyles.container}>
                 <View style={themedStyles.imageWrapper}>
                     <Image source={{ uri: product.images[0] }} style={themedStyles.image} />
-                    <View style={themedStyles.favIconWrapper}>
-                        {product.pillType && <CustomPill text={product.pillType} type={product.pillType} />}
+                    <View style={themedStyles.topRow}>
+                        <View style={themedStyles.ratingPill}>
+                            <CustomText variant={CustomTextVariant.SUBTEXT} style={themedStyles.ratingText}>{product.rating} ⭐</CustomText>
+                        </View>
                         <FavouriteIconComponent isFavourite={isFavourite} onToggle={toggleFavouriteHandler} />
                     </View>
-                </View>
-                <View style={themedStyles.detailsContainer}>
-                    <CustomText variant={CustomTextVariant.SUBTITLE} style={themedStyles.title}>{product.name}</CustomText>
-                    
-                    <View style={themedStyles.priceContainer}>
+                    <View style={themedStyles.bottomOverlay}>
+                        <CustomText variant={CustomTextVariant.SUBTITLE} style={themedStyles.title}>{product.name}</CustomText>
                         <CustomText variant={CustomTextVariant.SUBTITLE} style={themedStyles.price}>${product.price.toFixed(2)}</CustomText>
-                        {product.strikeThroughPrice && (
-                            <View style={themedStyles.strikePriceContainer}>
-                                <CustomText variant={CustomTextVariant.SUBTEXT} style={themedStyles.originalPrice}>
-                                    ${product.strikeThroughPrice.toFixed(2)}
-                                </CustomText>
-                                <Ionicons name="information-circle-outline" size={12} color={colors.textSecondary} />
-                            </View>
-                        )}
                     </View>
-                    
                 </View>
             </View>
         </TouchableOpacity>
@@ -61,13 +49,13 @@ function styles(colors: ColorTheme) {
             color: colors.textPrimary,
         },
         title: {
-            fontSize: 16,
-            color: colors.textPrimary,
-            marginBottom: 12,
+            fontSize: 12,
+            color: colors.white,
+            marginBottom: 2,
         },
         price: {
-            fontSize: 16,
-            color: colors.success,
+            fontSize: 12,
+            color: colors.white,
         },
         originalPrice: {
             fontSize: 12,
@@ -83,26 +71,44 @@ function styles(colors: ColorTheme) {
             flex: 1,
             backgroundColor: colors.backgroundSecondary,
             borderRadius: 16,
-        },
-        detailsContainer: {
-            padding: 8,
+            overflow: "hidden",
         },
         image: {
             borderRadius: 16,
-            height: 120,
+            height: 180,
             width: '100%',
-            marginBottom: 4,
         },
         imageWrapper: {
             position: "relative",
             overflow: "hidden",
         },
-        favIconWrapper: {
+        topRow: {
             position: "absolute",
             width: "100%",
             justifyContent: "space-between",
             flexDirection: "row",
             padding: 8,
+        },
+        ratingPill: {
+            backgroundColor: colors.backgroundSecondary,
+            opacity: 0.8,
+            borderRadius: 8,
+            paddingHorizontal: 8,
+            paddingVertical: 2,
+            alignSelf: "flex-start",
+        },
+        ratingText: {
+            fontSize: 10,
+            color: colors.textPrimary,
+        },
+        bottomOverlay: {
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            backgroundColor: "rgba(0,0,0,0.35)",
         },
         strikePriceContainer: {
             flexDirection: "row",

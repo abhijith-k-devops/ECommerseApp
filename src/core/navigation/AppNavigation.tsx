@@ -8,6 +8,7 @@ import SearchScreen from "../../presentation/search/SearchScreen";
 import FavoritesScreen from "../../presentation/favorites/FavoritesScreen";
 import CustomBottomNavigation from "../components/CustomBottomNavigation";
 import { useTheme } from "../hooks/useTheme";
+import CartScreen from "../../presentation/cart/CartScreen";
 
 
 const RootStack = createNativeStackNavigator<MainStackParamList>();
@@ -75,6 +76,24 @@ export default function AppNavigation() {
                             fontWeight: "600",
                         },
                     })}
+                />
+            </RootStack.Group>
+            <RootStack.Group screenOptions={{ presentation: "card" }}>
+                <RootStack.Screen
+                    name="Cart"
+                    component={CartScreen}
+                    options={{
+                        headerShown: true,
+                        title: "Cart",
+                        headerStyle: {
+                            backgroundColor: colors.background,
+                        },
+                        headerTintColor: colors.textPrimary,
+                        headerTitleStyle: {
+                            color: colors.textPrimary,
+                            fontWeight: "600",
+                        },
+                    }}
                 />
             </RootStack.Group>
         </RootStack.Navigator>

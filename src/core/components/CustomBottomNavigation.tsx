@@ -29,7 +29,7 @@ export default function CustomBottomNavigation({
         { name: "Home", icon: "home-outline", label: "Home" },
         { name: "Search", icon: "search-outline", label: "Search" },
         { name: "Favorites", icon: "heart-outline", label: "Favorites" },
-        { name: "Profile", icon: "person-outline", label: "Profile" },
+        { name: "Cart", icon: "cart-outline", label: "Cart" },
     ];
 
     return (
@@ -105,10 +105,10 @@ function createStyles(colors: ColorTheme) {
             flexDirection: "row",
             backgroundColor: colors.backgroundSecondary,
             borderRadius: 32,
-            paddingHorizontal: 8,
+            paddingHorizontal: 10,
             paddingVertical: 8,
             marginHorizontal: 16,
-            height: 64,
+            height: 68,
             alignItems: "center",
             justifyContent: "space-around",
         },

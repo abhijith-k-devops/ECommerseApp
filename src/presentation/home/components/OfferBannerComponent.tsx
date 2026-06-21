@@ -11,16 +11,13 @@ export default function OfferBannerComponent() {
     return (
         <View style={styles.container}>
 
-            <View style={styles.offerDetailsContainer}>                
-                <CustomText variant={CustomTextVariant.SUBTEXT} style={styles.text}>Special Offer</CustomText>
-                <View style={styles.percentageTextContainer}>
-                    <CustomText variant={CustomTextVariant.TITLE} style={styles.title}>Up to </CustomText>
-                    <CustomText variant={CustomTextVariant.TITLE} style={styles.percentageText}>50% Off</CustomText>
-                </View>
-                <CustomText variant={CustomTextVariant.SUBTEXT} style={styles.subtext}>On selected headphones and accessories</CustomText>
+            <View style={styles.offerDetailsContainer}>
+                <CustomText variant={CustomTextVariant.TITLE} style={styles.title}>New Offer</CustomText>
+                <CustomText variant={CustomTextVariant.SUBTEXT} style={styles.subtext}>Discount 50% For The First</CustomText>
+                <CustomText variant={CustomTextVariant.SUBTEXT} style={styles.subtext}>Order Transaction</CustomText>
                 <CustomButton 
-                    text="Shop Now" 
-                    type={ButtonType.PRIMARY} 
+                    text="Buy now" 
+                    type={ButtonType.OUTLINE} 
                     style={styles.buttonStyle} 
                     textStyle={styles.buttonTextStyle} 
                     onPress={()=>{}}/>
@@ -39,10 +36,10 @@ export default function OfferBannerComponent() {
 function createStyles(colors: any) {
     return StyleSheet.create({
         container: {
-            height: Platform.OS === "ios" ? 160 : 180,
+            height: Platform.OS === "ios" ? 150 : 160,
             width: "100%",
             flexDirection: "row",
-            borderRadius: 16,
+            borderRadius: 18,
             backgroundColor: colors.offer1Background,
             overflow: "hidden",
         },
@@ -52,58 +49,42 @@ function createStyles(colors: any) {
         },
         offerDetailsContainer: {
             flex: 1,
-            justifyContent: "center",
+            justifyContent: "flex-start",
             alignItems: "flex-start",
-            paddingLeft: 12,
+            paddingLeft: 18,
+            paddingTop: 14,
         },
         imageContainer: {
-             width: "45%",             // right panel width
+            width: "44%",
             height: "100%",
-            justifyContent: "center",
+            justifyContent: "flex-end",
             alignItems: "flex-end",
         },
         image: {
             width: "100%",
             height: "100%",
-            resizeMode: "cover",      // zoom + fill
-            borderTopLeftRadius: 80,  // optional curved left edge
-            borderBottomLeftRadius: 80,
+            resizeMode: "cover",
         },
         title: {
-            color: colors.text,
-        },
-        text: {
-            fontSize: 14,
-            color: colors.textSecondary,
-            paddingHorizontal: 16,
-            marginTop: 8,
-            marginBottom: 4,
+            color: colors.white,
+            fontSize: 24,
+            lineHeight: 30,
+            marginBottom: 2,
         },
         subtext: {
-            fontSize: 10,
-            color: colors.textLight,
-            paddingHorizontal: 16,
-            marginTop: 4,
-        },
-        percentageText: {
-            color: colors.primary,
-            marginLeft: 4,
-        },
-        percentageTextContainer: {
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "flex-start",
-            paddingHorizontal: 16,
-        },
-        buttonTextStyle: {
             fontSize: 12,
             color: colors.white,
+            opacity: 0.95,
+            lineHeight: 18,
+        },
+        buttonTextStyle: {
+            fontSize: 14,
+            color: colors.secondary,
         },
         buttonStyle: {
-            marginTop: 8,
-            paddingHorizontal: 8,
-            marginHorizontal: 16,
-            width: 100,
+            marginTop: 14,
+            borderColor: colors.white,
+            backgroundColor: colors.white,
         },
     });
 }
