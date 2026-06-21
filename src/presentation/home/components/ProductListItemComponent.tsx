@@ -1,4 +1,4 @@
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Image, StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
 import { ProductModel } from "../../../data/models/ProductModel";
 import { useTheme } from "../../../core/hooks/useTheme";
 import React, { useCallback } from "react";
@@ -9,9 +9,10 @@ import CustomText, { CustomTextVariant } from "../../../core/components/CustomTe
 
 interface ProductListingItemProps {
     product: ProductModel;
-    onPress: (product: ProductModel) => void
+    onPress: (product: ProductModel) => void;
+    style?: StyleProp<ViewStyle>;
 }
-export default function ProductListingItemComponent({ product, onPress }: ProductListingItemProps) {
+export default function ProductListingItemComponent({ product, onPress, style }: ProductListingItemProps) {
     const { colors } = useTheme();
     const themedStyles = styles(colors);
     const { isFavorite, toggleFavorite } = useFavorites();
@@ -21,7 +22,7 @@ export default function ProductListingItemComponent({ product, onPress }: Produc
         await toggleFavorite(product);
     }, [product, toggleFavorite]);
     return (
-        <TouchableOpacity style={themedStyles.touchable} onPress={() => onPress(product)}>
+        <TouchableOpacity style={[themedStyles.touchable, style]} onPress={() => onPress(product)}>
             <View style={themedStyles.container}>
                 <View style={themedStyles.imageWrapper}>
                     <Image source={{ uri: product.images[0] }} style={themedStyles.image} />

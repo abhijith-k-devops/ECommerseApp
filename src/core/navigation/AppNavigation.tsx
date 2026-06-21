@@ -66,6 +66,7 @@ export default function AppNavigation() {
                     component={ProductDetailsScreen}
                     options={({ route }) => ({
                         headerShown: true,
+                        headerBackButtonDisplayMode: "minimal",
                         title: route.params.product.name,
                         headerStyle: {
                             backgroundColor: colors.background,
@@ -84,6 +85,7 @@ export default function AppNavigation() {
                     component={CartScreen}
                     options={{
                         headerShown: true,
+                        headerBackButtonDisplayMode: "minimal",
                         title: "Cart",
                         headerStyle: {
                             backgroundColor: colors.background,

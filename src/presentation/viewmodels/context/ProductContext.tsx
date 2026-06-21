@@ -11,6 +11,7 @@ export type ProductContextType = {
     products: ProductModel[];
     loading: boolean;
     error: string | null;
+    refreshProducts: () => Promise<void>;
 };
 
 export const ProductContext = React.createContext<ProductContextType | null>(
@@ -47,7 +48,7 @@ export function ProductContextProvider({children}: ProductContextProviderProps) 
     }, []);
 
     return (
-        <ProductContext.Provider value={{ products, loading, error }}>
+        <ProductContext.Provider value={{ products, loading, error, refreshProducts: fetchProducts }}>
             {children}
         </ProductContext.Provider>
     );

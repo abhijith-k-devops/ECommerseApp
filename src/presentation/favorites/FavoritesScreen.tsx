@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from '../../core/hooks/useTheme';
 import { ColorTheme } from '../../core/theme/Colors';
@@ -13,9 +13,13 @@ import CustomText, { CustomTextVariant } from '../../core/components/CustomText'
 export default function FavoritesScreen() {
   const { colors } = useTheme();
   const styles = createStyles(colors);
+  const { width } = useWindowDimensions();
   const { favorites, isLoading } = useFavorites();
   const navigation =
     useNavigation<NativeStackNavigationProp<MainStackParamList>>();
+
+  const numColumns = width >= 1200 ? 4 : width >= 768 ? 3 : 2;
+  const itemWidth = numColumns === 4 ? '23.5%' : numColumns === 3 ? '31.8%' : '48%';
 
   const handleProductPress = (product: any) => {
     navigation.getParent()?.navigate('ProductDetails', { product });
@@ -31,8 +35,9 @@ export default function FavoritesScreen() {
         )}
         {!isLoading && favorites.length > 0 && (
           <FlatList
+            key={`favorites-grid-${numColumns}`}
             data={favorites}
-            numColumns={2}
+            numColumns={numColumns}
             style={styles.list}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.listContent}
@@ -41,6 +46,7 @@ export default function FavoritesScreen() {
             renderItem={({ item }) => (
               <ProductListingItemComponent
                 product={item}
+                style={{ width: itemWidth }}
                 onPress={handleProductPress}
               />
             )}

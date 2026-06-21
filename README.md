@@ -19,6 +19,38 @@ bundle install
 bundle exec pod install
 ```
 
+## Screenshots
+
+> Place the screenshot files in `assets/screenshots` with the names below.
+
+### Home (Mobile)
+
+![Home Mobile](assets/screenshots/home-mobile.png)
+
+### Home (Tablet / Web)
+
+![Home Tablet Web](assets/screenshots/home-tablet-web.png)
+
+### Home Scroll State
+
+![Home Scroll State](assets/screenshots/home-scroll-state.png)
+
+### Search Screen
+
+![Search Screen](assets/screenshots/search-screen.png)
+
+### Favorites Screen
+
+![Favorites Screen](assets/screenshots/favorites-screen.png)
+
+### Product Details Screen
+
+![Product Details Screen](assets/screenshots/product-details-screen.png)
+
+### Cart Screen
+
+![Cart Screen](assets/screenshots/cart-screen.png)
+
 ## Project Structure
 
 - `src/core`: navigation, shared components, theme, hooks, app-level types
