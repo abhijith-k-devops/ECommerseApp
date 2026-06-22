@@ -21,8 +21,6 @@ bundle exec pod install
 
 ## Screenshots
 
-> Place the screenshot files in `assets/screenshots` with the names below.
-
 ### Home
 
 | Mobile | Tablet | Web |
